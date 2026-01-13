@@ -49,7 +49,7 @@
       Data é obrigatória
     </div>
     <div class="error" *ngIf="bookingForm.get('date')?.errors?.['tooSoon'] && bookingForm.get('date')?.touched">
-      Agendamento deve ser feito com pelo menos 1 dia de antecedência
+      Agendamento deve ser feito com pelo menos 24h de antecedência
     </div>
 
     <!-- Hora -->

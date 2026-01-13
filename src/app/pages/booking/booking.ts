@@ -5,15 +5,20 @@ import { CommonModule } from '@angular/common';
 // Validador para datas futuras com +1 dia
 function futureDateValidator(control: AbstractControl): ValidationErrors | null {
   if (!control.value) return null;
+
   const selectedDate = new Date(control.value);
-  const today = new Date();
-  today.setHours(0, 0, 0, 0);
+  const now = new Date();
 
-  const minDate = new Date(today);
-  minDate.setDate(minDate.getDate() + 1);
+  // Tolerância mínima: 24 horas
+  const minDate = new Date(now.getTime() + 24 * 60 * 60 * 1000); // 24h à frente
 
-  return selectedDate < minDate ? { tooSoon: true } : null;
+  if (selectedDate < minDate) {
+    return { tooSoon: true };
+  }
+
+  return null;
 }
+
 
 // Validador para horários dentro do expediente (09:00 - 18:00)
 function workingHoursValidator(control: AbstractControl): ValidationErrors | null {
