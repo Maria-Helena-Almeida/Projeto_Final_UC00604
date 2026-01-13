@@ -2,10 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-gallery',
-  imports: [],
+  standalone: true,
   templateUrl: './gallery.html',
-  styleUrl: './gallery.css',
+  styleUrls: ['./gallery.css']
 })
-export class Gallery {
-
-}
+export class Gallery {}
