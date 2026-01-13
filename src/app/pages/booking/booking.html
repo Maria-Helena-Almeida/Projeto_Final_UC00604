@@ -21,10 +21,7 @@
     <div class="error" *ngIf="bookingForm.get('email')?.errors?.['email'] && bookingForm.get('email')?.touched">
       Email inválido
     </div>
-    <div class="error" *ngIf="bookingForm.get('email')?.errors?.['emailTaken'] && bookingForm.get('email')?.touched">
-      Este email já está cadastrado
-    </div>
-
+   
     <!-- Telefone -->
     <label>Telefone</label>
     <input type="text" formControlName="phone" placeholder="Apenas números" />

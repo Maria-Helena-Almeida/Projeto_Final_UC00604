@@ -2,9 +2,6 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
-// Simulação de emails já cadastrados
-const existingEmails = ['maria@example.com', 'joao@gmail.com'];
-
 function futureDateValidator(control: AbstractControl): ValidationErrors | null {
   if (!control.value) return null;
 
@@ -16,12 +13,6 @@ function futureDateValidator(control: AbstractControl): ValidationErrors | null 
   minDate.setDate(minDate.getDate() + 1); // +1 dia de antecedência
 
   return selectedDate < minDate ? { tooSoon: true } : null;
-}
-
-// Validador de email único (simulado)
-function uniqueEmailValidator(control: AbstractControl): ValidationErrors | null {
-  if (!control.value) return null;
-  return existingEmails.includes(control.value.toLowerCase()) ? { emailTaken: true } : null;
 }
 
 @Component({
@@ -46,7 +37,7 @@ export class Booking {
   constructor(private fb: FormBuilder) {
     this.bookingForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
-      email: ['', [Validators.required, Validators.email, uniqueEmailValidator]],
+      email: ['', [Validators.required, Validators.email]],
       phone: ['', [Validators.required, Validators.pattern(/^\d{9,15}$/)]],
       service: ['', Validators.required],
       date: ['', [Validators.required, futureDateValidator]],
