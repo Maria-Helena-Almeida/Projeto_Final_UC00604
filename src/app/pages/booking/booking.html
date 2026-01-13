@@ -1,42 +1,72 @@
 <section class="booking-section">
   <h1>Marque o seu atendimento</h1>
   <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+
+    <!-- Nome -->
     <label>Nome completo</label>
     <input type="text" formControlName="name" />
-    <div class="error" *ngIf="bookingForm.get('name')?.invalid && bookingForm.get('name')?.touched">
-      Nome é obrigatório (mín. 3 caracteres)
+    <div class="error" *ngIf="bookingForm.get('name')?.errors?.['required'] && bookingForm.get('name')?.touched">
+      Nome é obrigatório
+    </div>
+    <div class="error" *ngIf="bookingForm.get('name')?.errors?.['minlength'] && bookingForm.get('name')?.touched">
+      Nome deve ter pelo menos 3 caracteres
     </div>
 
+    <!-- Email -->
     <label>Email</label>
     <input type="email" formControlName="email" />
-    <div class="error" *ngIf="bookingForm.get('email')?.invalid && bookingForm.get('email')?.touched">
+    <div class="error" *ngIf="bookingForm.get('email')?.errors?.['required'] && bookingForm.get('email')?.touched">
+      Email é obrigatório
+    </div>
+    <div class="error" *ngIf="bookingForm.get('email')?.errors?.['email'] && bookingForm.get('email')?.touched">
       Email inválido
     </div>
+    <div class="error" *ngIf="bookingForm.get('email')?.errors?.['emailTaken'] && bookingForm.get('email')?.touched">
+      Este email já está cadastrado
+    </div>
 
+    <!-- Telefone -->
+    <label>Telefone</label>
+    <input type="text" formControlName="phone" placeholder="Apenas números" />
+    <div class="error" *ngIf="bookingForm.get('phone')?.errors?.['required'] && bookingForm.get('phone')?.touched">
+      Telefone é obrigatório
+    </div>
+    <div class="error" *ngIf="bookingForm.get('phone')?.errors?.['pattern'] && bookingForm.get('phone')?.touched">
+      Telefone inválido (apenas números, 9-15 dígitos)
+    </div>
+
+    <!-- Serviço -->
     <label>Serviço</label>
     <select formControlName="service">
       <option value="">Selecione um serviço</option>
       <option *ngFor="let s of services" [value]="s">{{ s }}</option>
     </select>
-    <div class="error" *ngIf="bookingForm.get('service')?.invalid && bookingForm.get('service')?.touched">
+    <div class="error" *ngIf="bookingForm.get('service')?.errors?.['required'] && bookingForm.get('service')?.touched">
       Seleciona um serviço
     </div>
 
+    <!-- Data -->
     <label>Data</label>
     <input type="date" formControlName="date" />
-    <div class="error" *ngIf="bookingForm.get('date')?.invalid && bookingForm.get('date')?.touched">
-      Data é obrigatória
+    <div class="error" *ngIf="bookingForm.get('date')?.errors?.['required'] && bookingForm.get('date')?.touched">
+      Data inválida
+    </div>
+    <div class="error" *ngIf="bookingForm.get('date')?.errors?.['tooSoon'] && bookingForm.get('date')?.touched">
+      O agendamento deve ser feito com pelo menos 1 dia de antecedência
     </div>
 
+    <!-- Hora -->
     <label>Hora</label>
     <input type="time" formControlName="time" />
-    <div class="error" *ngIf="bookingForm.get('time')?.invalid && bookingForm.get('time')?.touched">
+    <div class="error" *ngIf="bookingForm.get('time')?.errors?.['required'] && bookingForm.get('time')?.touched">
       Hora é obrigatória
     </div>
 
+    <!-- Observações -->
     <label>Observações (opcional)</label>
     <textarea formControlName="notes"></textarea>
 
+    <!-- Botão -->
     <button type="submit" [disabled]="bookingForm.invalid">Marcar Atendimento</button>
   </form>
 </section>
