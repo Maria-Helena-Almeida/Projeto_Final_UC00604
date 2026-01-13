@@ -4,9 +4,8 @@
   padding: 20px;
 }
 
-h1 {
+h1, h2 {
   text-align: center;
-  margin-bottom: 24px;
 }
 
 form {
@@ -47,4 +46,13 @@ button:disabled {
 .error {
   color: red;
   font-size: 12px;
+}
+
+/* Resumo do agendamento */
+.booking-summary {
+  margin-top: 40px;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
 }

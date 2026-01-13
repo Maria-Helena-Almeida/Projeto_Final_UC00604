@@ -21,7 +21,7 @@
     <div class="error" *ngIf="bookingForm.get('email')?.errors?.['email'] && bookingForm.get('email')?.touched">
       Email inválido
     </div>
-   
+
     <!-- Telefone -->
     <label>Telefone</label>
     <input type="text" formControlName="phone" placeholder="Apenas números" />
@@ -29,7 +29,7 @@
       Telefone é obrigatório
     </div>
     <div class="error" *ngIf="bookingForm.get('phone')?.errors?.['pattern'] && bookingForm.get('phone')?.touched">
-      Telefone inválido (apenas números, 9-15 dígitos)
+      Telefone inválido (9-15 dígitos)
     </div>
 
     <!-- Serviço -->
@@ -46,10 +46,10 @@
     <label>Data</label>
     <input type="date" formControlName="date" />
     <div class="error" *ngIf="bookingForm.get('date')?.errors?.['required'] && bookingForm.get('date')?.touched">
-      Data inválida
+      Data é obrigatória
     </div>
     <div class="error" *ngIf="bookingForm.get('date')?.errors?.['tooSoon'] && bookingForm.get('date')?.touched">
-      O agendamento deve ser feito com pelo menos 1 dia de antecedência
+      Agendamento deve ser feito com pelo menos 1 dia de antecedência
     </div>
 
     <!-- Hora -->
@@ -57,6 +57,9 @@
     <input type="time" formControlName="time" />
     <div class="error" *ngIf="bookingForm.get('time')?.errors?.['required'] && bookingForm.get('time')?.touched">
       Hora é obrigatória
+    </div>
+    <div class="error" *ngIf="bookingForm.get('time')?.errors?.['outOfHours'] && bookingForm.get('time')?.touched">
+      Horário deve ser entre 09:00 e 18:00
     </div>
 
     <!-- Observações -->
@@ -66,4 +69,16 @@
     <!-- Botão -->
     <button type="submit" [disabled]="bookingForm.invalid">Marcar Atendimento</button>
   </form>
+
+  <!-- Resumo do agendamento -->
+  <div class="booking-summary" *ngIf="lastBooking">
+    <h2>Resumo do Agendamento</h2>
+    <p><strong>Nome:</strong> {{ lastBooking.name }}</p>
+    <p><strong>Email:</strong> {{ lastBooking.email }}</p>
+    <p><strong>Telefone:</strong> {{ lastBooking.phone }}</p>
+    <p><strong>Serviço:</strong> {{ lastBooking.service }}</p>
+    <p><strong>Data:</strong> {{ lastBooking.date }}</p>
+    <p><strong>Hora:</strong> {{ lastBooking.time }}</p>
+    <p><strong>Observações:</strong> {{ lastBooking.notes || 'Nenhuma' }}</p>
+  </div>
 </section>
